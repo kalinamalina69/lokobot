@@ -1,13 +1,16 @@
 import logging
 import asyncio
-import random
 from datetime import datetime, timedelta
 from aiogram import Bot
-import pytz  # Для работы с часовыми поясами
+import pytz
+from dotenv import load_dotenv
+import os
+import random  # Импортируем random
 
-# Настройки
-TOKEN = "7674473606:AAHOt_mwH-7ALGQiHCNSbfmfcyow2SyuMJU"
+load_dotenv()  # Загружаем переменные окружения из .env
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")  # Получаем токен из переменных окружения
 CHAT_ID = -1002311755846  # Числовой идентификатор чата/группы (замените на реальный)
+print(TOKEN)  # Выведет значение токена
 
 # Данные пользователей (даты в формате DD.MM с ведущими нулями)
 users = [
@@ -33,7 +36,6 @@ bot = Bot(token=TOKEN)
 
 # Московский часовой пояс
 MOSCOW_TZ = pytz.timezone("Europe/Moscow")
-
 
 async def check_birthdays():
     """Проверяет дни рождения и отправляет сообщение, если сегодня чей-то праздник."""
